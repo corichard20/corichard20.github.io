@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where Do My Taxes Go? — FY2024 Federal, State & Local Breakdown</title>
+  <meta name="description" content="Enter your zip code and taxable income to see a personalized breakdown of how your federal, state, and local tax dollars were spent in FY2024.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Where Do My Taxes Go?</h1>
+      <p>Enter your ZIP code and taxable income to see exactly how your 2024 tax dollars were spent — from Social Security to your city's fire department.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="input-section">
+      <form id="tax-form" novalidate>
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="zip">ZIP Code</label>
+            <input type="text" id="zip" inputmode="numeric" placeholder="e.g. 10001" maxlength="5" pattern="\d{5}" autocomplete="postal-code">
+            <span class="location-display" id="location-display" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="income">
+              Taxable Income
+              <span class="tooltip" title="Your income after all deductions — the amount on Line 15 of IRS Form 1040. For a rough estimate, use your gross salary minus the standard deduction ($14,600 single / $29,200 married).">?</span>
+            </label>
+            <div class="input-with-prefix">
+              <span>$</span>
+              <input type="number" id="income" inputmode="decimal" placeholder="e.g. 75,000" min="0" max="100000000" step="1">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="filing-status">Filing Status</label>
+            <select id="filing-status">
+              <option value="single">Single</option>
+              <option value="mfj">Married Filing Jointly</option>
+              <option value="mfs">Married Filing Separately</option>
+              <option value="hoh">Head of Household</option>
+            </select>
+          </div>
+
+        </div>
+        <button type="submit">Calculate My Tax Breakdown →</button>
+      </form>
+    </section>
+
+    <section class="results-section" id="results" hidden aria-live="polite">
+
+      <div class="summary-cards" id="summary-cards"></div>
+
+      <div class="charts-container">
+
+        <div class="chart-section" id="federal-section" hidden>
+          <h2>Federal Taxes — Where Your Money Went</h2>
+          <div class="chart-wrapper">
+            <canvas id="federal-chart" aria-label="Federal spending breakdown donut chart"></canvas>
+          </div>
+          <div class="chart-legend" id="federal-legend"></div>
+        </div>
+
+        <div class="chart-section" id="state-section" hidden>
+          <h2>State Taxes — <span id="state-name-heading"></span></h2>
+          <div class="chart-wrapper">
+            <canvas id="state-chart" aria-label="State spending breakdown donut chart"></canvas>
+          </div>
+          <div class="chart-legend" id="state-legend"></div>
+        </div>
+
+        <div class="chart-section" id="local-section" hidden>
+          <h2>Local Taxes — <span id="city-name"></span></h2>
+          <div class="chart-wrapper">
+            <canvas id="local-chart" aria-label="Local spending breakdown donut chart"></canvas>
+          </div>
+          <div class="chart-legend" id="local-legend"></div>
+        </div>
+
+      </div>
+
+      <div class="disclaimer">
+        <p>
+          <strong>Methodology & Sources:</strong> Federal data from OMB FY2024 Budget (Table 3.2) and CBO Budget &amp; Economic Outlook.
+          Individual income tax revenue used as denominator for proportional allocation. State data from NASBO State Expenditure Report
+          and individual state budget documents (general fund spending). Local data from city budget documents for jurisdictions with
+          earned income taxes. State and local dollar amounts reflect your <em>proportional share</em> of total income tax-funded spending
+          and are estimates for illustrative purposes. Actual tax liability may differ due to credits, deductions, and other adjustments.
+          This tool is not tax advice.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
